@@ -27,7 +27,7 @@
 			if($password != $confirm_password){
 				echo "密碼不一致，請重新輸入。";
 			} else {
-				header("location: login.php");
+				echo "註冊成功！";
 			}
 		}
 	?>
