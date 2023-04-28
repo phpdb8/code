@@ -26,7 +26,7 @@
 			if($password != $confirm_password){
 				echo "密碼不一致，請重新輸入。";
 			} else {
-				echo "註冊成功！";
+				header("location: signin.php");
 			}
 		}
 	?>
