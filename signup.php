@@ -27,8 +27,7 @@
 			if($password != $confirm_password){
 				echo "密碼不一致，請重新輸入。";
 			} else {
-				// 在這裡實現你的註冊功能，比如將資料插入到資料庫中
-				echo "註冊成功！";
+				header("location: login.php");
 			}
 		}
 	?>
