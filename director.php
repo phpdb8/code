@@ -1,68 +1,54 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$director_id = $_GET['id'];
+$sql = "SELECT * FROM directors WHERE id = $director_id";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+
+$sql_movies = "SELECT movies.id, movies.title, movies.poster, movies.release_date FROM movies 
+               JOIN movie_director ON movies.id = movie_director.movie_id 
+               JOIN directors ON movie_director.director_id = directors.id 
+               WHERE directors.id = $director_id";
+$result_movies = mysqli_query($conn, $sql_movies);
+?>
+
+<!DOCTYPE html>
 <html>
 <head>
-	<title>導演介面</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8">
+    <title><?php echo $row['name']; ?></title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<header>
-		<h1>導演介面</h1>
-	</header>
-
-	<nav>
-		<ul>
-			<li><a href="home.php">首頁</a></li>
-			<li><a href="movie.php">電影介面</a></li>
-			<li><a href="user.php">用戶介面</a></li>
-		</ul>
-	</nav>
-
-	<main>
-		<?php
-			// 連接資料庫
-			$db_server = "localhost";
-			$db_username = "root";
-			$db_password = "";
-			$db_name = "movie_database";
-
-			$conn = mysqli_connect($db_server, $db_username, $db_password, $db_name);
-
-			if (!$conn) {
-				die("連接資料庫失敗: " . mysqli_connect_error());
-			}
-
-
-			$director_id = $_GET['id'];
-
-			$sql = "SELECT * FROM directors WHERE director_id=$director_id";
-			$result = mysqli_query($conn, $sql);
-
-			if (mysqli_num_rows($result) > 0) {
-				$row = mysqli_fetch_assoc($result);
-				echo "<h2>" . $row["director_name"] . "</h2>";
-				echo "<p>" . $row["director_info"] . "</p>";
-			} else {
-				echo "找不到該導演";
-			}
-
-			$sql = "SELECT * FROM movies WHERE director_id=$director_id";
-			$result = mysqli_query($conn, $sql);
-
-			if (mysqli_num_rows($result) > 0) {
-				echo "<h2>電影列表</h2>";
-				echo "<ul>";
-				while($row = mysqli_fetch_assoc($result)) {
-					echo "<li><a href='movie.php?id=" . $row["movie_id"] . "'>" . $row["movie_name"] . "</a></li>";
-				}
-				echo "</ul>";
-			} else {
-				echo "找不到該導演的電影";
-			}
-
-			mysqli_close($conn);
-		?>
-	</main>
-
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.php">首頁</a></li>
+                <li><a href="logout.php">登出</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1><?php echo $row['name']; ?></h1>
+        <div class="director-info">
+            <img src="<?php echo $row['photo']; ?>" alt="<?php echo $row['name']; ?>的照片">
+            <p><?php echo $row['bio']; ?></p>
+        </div>
+        <h2>執導作品</h2>
+        <div class="movie-grid">
+            <?php while ($row_movies = mysqli_fetch_assoc($result_movies)) { ?>
+                <div class="movie">
+                    <a href="movie.php?id=<?php echo $row_movies['id']; ?>"><img src="<?php echo $row_movies['poster']; ?>" alt="<?php echo $row_movies['title']; ?>"></a>
+                    <h3><?php echo $row_movies['title']; ?></h3>
+                    <p><?php echo $row_movies['release_date']; ?></p>
+                </div>
+            <?php } ?>
+        </div>
+    </main>
 </body>
 </html>
