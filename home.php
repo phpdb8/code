@@ -11,7 +11,7 @@
         if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
             $user_name = $_SESSION['user_name'];
-            echo '<p>歡迎您，' . $user_name . '</p>';
+            echo '<p>歡迎您登入，一起享受電影吧，' . $user_name . '</p>';
             echo '<form action="logout.php" method="post">
                       <button type="submit" name="logout">登出</button>
                   </form>';
