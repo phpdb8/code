@@ -5,12 +5,10 @@
         die("Connection failed: " . $db->connect_error);
     }
 
-    // 取得導演的資訊
     $director_query = "SELECT * FROM directors WHERE id = $director_id";
     $director_result = $db->query($director_query);
     $director_row = $director_result->fetch_assoc();
 
-    // 取得導演指導過的作品
     $movies_query = "SELECT * FROM movies WHERE director_id = $director_id";
     $movies_result = $db->query($movies_query);
 ?>
