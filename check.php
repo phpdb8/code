@@ -4,7 +4,7 @@ session_start();
 $servername = "127.0.0.1:3306";
 $username = "username";
 $password = "password";
-$dbname = "moviesdb";
+$dbname = "phpdb8";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $result = $conn->query($sql);
     
 if ($result->num_rows === 1) {
-        header("Location: main.php");
+        header("Location: home.php");
     } else {
         echo "帳號或密碼錯誤！";
         header("Location: signin.php");
