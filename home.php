@@ -24,7 +24,7 @@
         <h2>所有電影</h2>
         <div class="movies">
             <?php
-            // 連接數據庫，獲取所有電影記錄
+
             $conn = new mysqli('localhost', 'username', 'password', 'dbname');
             if ($conn->connect_error) {
                 die('數據庫連接錯誤：' . $conn->connect_error);
