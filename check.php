@@ -1,10 +1,9 @@
 <?php
 
-session_start();
-$servername = "127.0.0.1:3306";
-$username = "username";
-$password = "password";
-$dbname = "phpdb8";
+    $servername = "127.0.0.1:3306";
+    $username = "localhost";
+    $password = "Yes";
+    $dbname = "phpdb8";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
