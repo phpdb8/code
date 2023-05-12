@@ -1,13 +1,31 @@
-    session_start();
-    $servername = "127.0.0.1:3306";
-    $username = "username";
-    $password = "password";
-    $dbname = "moviesdb";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-
 <?php
-if(){
-    header("Location:home.php");
-}else
+
+session_start();
+$servername = "127.0.0.1:3306";
+$username = "username";
+$password = "password";
+$dbname = "moviesdb";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("連線失敗：" . $conn->connect_error);
+}
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+  
+    $sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+    $result = $conn->query($sql);
+    
+if ($result->num_rows === 1) {
+        header("Location: main.php");
+    } else {
+        echo "帳號或密碼錯誤！";
+        header("Location: signin.php");
+    }
+}
+
+$conn->close();
+?>
