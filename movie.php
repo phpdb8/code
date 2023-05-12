@@ -1,6 +1,6 @@
 <?php
     session_start();
-    $servername = "localhost";
+    $servername = "127.0.0.1:3306";
     $username = "username";
     $password = "password";
     $dbname = "moviesdb";
