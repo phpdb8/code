@@ -15,7 +15,7 @@ if($_SESSION["login"]=="No"){
 </head>
 
 <body>
-登入失敗!<br/>
+帳號或密碼錯誤!<br/>
 網頁將在三秒後跳轉至登入頁面或
 <a href="signin.php">點選這裡</a>
 <?php
