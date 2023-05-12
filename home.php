@@ -33,7 +33,6 @@
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    // 顯示每部電影的縮略圖和標題
                     echo '<div class="movie">
                               <a href="movie.php?id=' . $row['id'] . '">
                                   <img src="' . $row['image'] . '">
